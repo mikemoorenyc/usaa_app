@@ -18,7 +18,9 @@ function portfolio_init() {
           'title',
           'revisions',
           'thumbnail',
-          'editor'
+          'editor',
+          'author',
+          'page-attributes'
         )
       );
     register_post_type( 'portfolio', $args );

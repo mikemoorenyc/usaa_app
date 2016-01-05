@@ -1,4 +1,4 @@
-mainMapStyles = [
+globals.mapStyle = [
   {
     "stylers": [
       { "visibility": "off" }

@@ -1,42 +1,45 @@
+templates = {};
+
+var handlebarsHTML = '<div>'+$('#handlebars-templates').html()+'</div>';
+handlebarsHTML = $.parseHTML(handlebarsHTML);
+
+$(handlebarsHTML).find('> div').each(function(){
+  var id = $(this).attr('id');
+  id = id.replace("template", "");
+  var html = $(this).html();
+  templates[id] = Handlebars.compile(html);
+
+});
 function siteInit() {
 
   //COMPILE TEMPLATES
-  $('#handlebars-templates > div').each(function(){
-    var id = $(this).attr('id');
-    var html = $(this).html();
-    window[id] = Handlebars.compile(html);
-  });
+
+
+  //console.log($('#handlebars-templates').html());
 
 
 
   //GLOBALS
-  ts = 250,
-  tab = 401,
-  dt = 801;
-  windoww = $(window).width();
-  windowh = $(window).height();
+  globals.ts = 250,
+  globals.tab = 401,
+  globals.dt = 801;
+
+
+  globals.ww = $(window).width();
+  globals.wh = $(window).height();
   orientationClass();
+  scaffoldSizer();
   $(window).resize(function(){
-    windoww = $(window).width();
-    windowh = $(window).height();
+    globals.ww = $(window).width();
+    globals.wh = $(window).height();
     orientationClass();
+    scaffoldSizer();
   });
 
-  //theHistory();
+  // INITIALIZE THE MAIN MAP
+  mainMapMaker();
 
 
-  //CHECK IF CSS IS LOADED
-  /*
-  var thechecker = setInterval(function(){
-    var ztest = $('#css-checker').css('height');
-
-    if(ztest == '1px') {
-      cssLoaded = true;
-      clearInterval(thechecker);
-      console.log('css loaded');
-    }
-  }, 10);
-  */
 
 
 
@@ -51,11 +54,16 @@ function siteInit() {
 
 
 
+function scaffoldSizer() {
+  var hh = $('header').height();
+  var nh = $('nav').height();
+  $('#map').height(globals.wh - (hh+ nh));
 
+}
 
 
 function orientationClass() {
-  if (windoww >= windowh) {
+  if (globals.ww >= globals.wh) {
     $('html').addClass('_orientation-landscape').removeClass('_orientation-portrait');
   } else {
     $('html').removeClass('_orientation-landscape').addClass('_orientation-portrait');
@@ -66,4 +74,6 @@ function orientationClass() {
 
 //DON'T TOUCH
 siteScriptsLoaded = true;
-siteInit();
+$(document).ready(function(){
+  siteInit();
+});

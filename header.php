@@ -87,13 +87,20 @@ else: ?>
 -->
 <script>
 
-siteURL = '<?php echo $homeURL;?>';
-templateURL = '<?php echo $siteDir;?>';
+globals = {
+  homeURL :'<?php echo $homeURL;?>',
+  templateURL : '<?php echo $siteDir;?>',
+  baseTitle : '<?php echo $siteTitle;?>'
+}
+
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="<?php echo $siteDir;?>/js/main.js?v=<?php echo time();?>"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3&amp;"></script>
+
+
+
 </head>
 
 <body id="top">
-<div id="css-checker"></div>
+<div id="appContainer">

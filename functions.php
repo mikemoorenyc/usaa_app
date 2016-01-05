@@ -49,5 +49,7 @@ function content_cleaner($content) {
 
 
 include 'property-type.php';
+include 'include-URL-variables.php';
+include 'portfolio-meta-add.php';
 
 ?>

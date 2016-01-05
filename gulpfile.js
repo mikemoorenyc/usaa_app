@@ -1,4 +1,4 @@
-var buildDir = 'build';
+var buildDir = 'build-usaa';
 
 //GENERAL MODULES
 var gulp = require('gulp'),
@@ -48,8 +48,8 @@ var uglify = require('gulp-uglify'),
 
 gulp.task('js', function () {
   gulp.src(['js/handlebars.js','js/plugins/*.js', 'js/site.js', 'js/modules/*.js'])
-    .on('error', console.error.bind(console))
     .pipe(uglify())
+    .on('error', console.error.bind(console))
     .pipe(concat('main.js'))
     .pipe(gulp.dest('../'+buildDir+'/js'));
 
