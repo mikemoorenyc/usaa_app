@@ -43,7 +43,7 @@
 </nav>
 
 
-<div id="detail-container">
+<div id="detail-container" style="display:none; position: absolute; left: 0; top: 0; background:white;">
 
 
 </div>

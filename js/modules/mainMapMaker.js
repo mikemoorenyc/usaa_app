@@ -67,3 +67,9 @@ function mainMapMaker() {
     alert('Could Not Load Data. Please refresh page.');
   })
 }
+
+///CLICKING THE LINK
+$(document).on('click', 'a.mainMapPin', function(e){
+  e.preventDefault();
+  detailCreator($(this));
+});
