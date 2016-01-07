@@ -1,6 +1,8 @@
 function hubChecker(statuses) {
   var currentZoom = globals.mainMap.getZoom();
-
+  $('.hubPin').each(function(){
+    pinFader($(this),'rev','fast');
+  });
   if(currentZoom >= 7) {
 
     //console.log('zoomed');
@@ -35,16 +37,24 @@ function hubChecker(statuses) {
         if(p.toggled == true && p.inhub == false) {
           if (hub['drawn'].contains(new google.maps.LatLng(p.lat, p.lng))) {
             p.inhub = true;
-
+            p.hubSlug = hub.hubSlug;
             pointCount++;
           }
         }
       });
-      if(pointCount > 0) {
+      if(pointCount > 1) {
 
         $('.hubPin.hub-'+index).find('span.count').text(pointCount);
         // FADE IN IMMEDIATELY
         pinFader($('.hubPin.hub-'+index),'fore','fast')
+      }
+      if(pointCount == 1) {
+        $(globals.properties).each(function(){
+          var p = this;
+          if(p.hubSlug == hub.hubSlug) {
+            p.inhub = false;
+          }
+        });
       }
     });
     /*
