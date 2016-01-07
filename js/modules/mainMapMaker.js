@@ -1,3 +1,6 @@
+google.maps.Circle.prototype.contains = function(latLng) {
+  return this.getBounds().contains(latLng) && google.maps.geometry.spherical.computeDistanceBetween(this.getCenter(), latLng) <= this.getRadius();
+}
 function mainMapMaker() {
   var centerLat = 39.747293,
       centerLon = -104.9973211,
@@ -20,12 +23,6 @@ function mainMapMaker() {
      new google.maps.LatLng(48.85, -55.90)
    );
 
-   // Listen for the dragend event
-   /*
-   google.maps.event.addListener(globals.mainMap, 'center_changed',function(){
-     console.log(globals.mainMap.getCenter());
-   });
-   */
    google.maps.event.addListener(globals.mainMap, 'center_changed', function() {
      if (strictBounds.contains(globals.mainMap.getCenter())) return;
 
@@ -47,13 +44,24 @@ function mainMapMaker() {
      globals.mainMap.setCenter(new google.maps.LatLng(y, x));
    });
 
+   //ZOOM CHANGE
+   google.maps.event.addListener(globals.mainMap, 'zoom_changed', function(){
+
+       stateCreator(globals.properties);
+
+   });
+
   //GET PINS
   $.ajax({
     url:globals.homeURL+'/home-context',
     dataType:'json',
   })
   .done(function(data){
-    mainMapPinSetter(data.properties);
+    globals.properties = data.properties;
+
+    hubCreator(globals.mapHubs);
+    mainMapPinSetter(globals.properties);
+
   })
   .fail(function(){
     alert('Could Not Load Data. Please refresh page.');

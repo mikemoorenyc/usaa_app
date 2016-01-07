@@ -10,6 +10,13 @@ $(handlebarsHTML).find('> div').each(function(){
   templates[id] = Handlebars.compile(html);
 
 });
+
+function mapLoadedCheck() {
+  if(globals.loaded == 2) {
+    //hubChecker();
+    stateCreator(globals.properties);
+  }
+}
 function siteInit() {
 
   //COMPILE TEMPLATES
@@ -20,9 +27,11 @@ function siteInit() {
 
 
   //GLOBALS
-  globals.ts = 250,
+  globals.ts = 500,
   globals.tab = 401,
   globals.dt = 801;
+  globals.loaded = 0;
+
 
 
   globals.ww = $(window).width();

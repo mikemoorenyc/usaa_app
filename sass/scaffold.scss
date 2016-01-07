@@ -135,6 +135,29 @@ blockquote {
 }
 
 
+.hubPin,.mapPin {
+  visibility: hidden !important;
+  z-index:-1;
+  &.__visible {
+    visibility: visible !important;
+    z-index:1;
+  }
+}
+
+.hubPin {
+  &.__activated {
+    //visibility:visible !important;
+    //z-index: 1 !important;
+  }
+}
+.mapPin {
+  &._in-hub {
+    //visibility: hidden !important;
+    //z-index: -1;
+  }
+}
+
+
 //REAL SCAFFOLD
 header, nav, #map {
   position:relative;

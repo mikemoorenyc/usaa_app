@@ -12,6 +12,8 @@ $slug = $post->post_name;
 global $siteDir;
 $siteDir = get_bloginfo('template_url');
 
+global $home;
+$homePage = get_page_by_title('Home');
 //GET HOME URL
 global $homeURL;
 $homeURL = esc_url( home_url( ) );
@@ -85,6 +87,10 @@ else: ?>
 <meta property="og:image" content="<?php echo $siteDir;?>/assets/blue-pin.jpg" />
 <meta property="og:description" content="<?php echo $siteDesc;?>" />
 -->
+<?php
+$hubs = get_post_meta($homePage->ID, 'map-hubs', true);
+
+?>
 <script>
 
 globals = {
@@ -92,11 +98,31 @@ globals = {
   templateURL : '<?php echo $siteDir;?>',
   baseTitle : '<?php echo $siteTitle;?>'
 }
+globals.mapHubs = [
+  <?php
+  $looper = 0;
+  foreach($hubs as $h) {
+    if($looper > 0) {
+      echo ',';
+    }
+    $latlng = explode(',', $h['coordinates']);
+    ?>
+    {
+      hubSlug : '<?php echo $h['hub-slug'];?>',
+      lat : <?php echo $latlng[0];?>,
+      lng: <?php echo $latlng[1];?>,
+      mileRadius : <?php echo $h['mile-radius'];?>
+    }
+    <?php
+    $looper++;
+  }
+  ?>
+]
 
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3&amp;"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3&amp;libraries=geometry"></script>
 
 
 
