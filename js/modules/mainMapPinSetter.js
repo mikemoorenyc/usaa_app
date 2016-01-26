@@ -31,7 +31,7 @@ function mainMapPinSetter(props) {
       ,alignBottom: false
     }
     var mapPin = new InfoBox(infoBoxOptions);
-    mapPin.setPosition(new google.maps.LatLng(p.lat, p.lng));
+  //  mapPin.setPosition(new google.maps.LatLng(p.lat, p.lng));
     mapPin.open(globals.mainMap);
     mapPin.addListener("domready", function() {
 

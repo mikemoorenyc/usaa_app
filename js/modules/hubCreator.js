@@ -9,7 +9,9 @@ function hubCreator(hubs) {
       fillColor: 'blue',
       map: globals.mainMap,
       center: new google.maps.LatLng(hub.lat, hub.lng),
-      radius: hub.mileRadius* 1609.344
+      radius: hub.mileRadius* 1609.344,
+      fillOpacity: 0,
+      strokeOpacity:0
     });
     //CREATE THE HUB PINS
     var data = {
@@ -27,6 +29,7 @@ function hubCreator(hubs) {
         background: 'red',
         width: "20px",
         height: "20px",
+
       }
       ,zIndex: -1
       ,boxClass: 'hubPin '+hub.hubSlug+' '+'hub-'+index
@@ -40,7 +43,7 @@ function hubCreator(hubs) {
       ,alignBottom: false
     }
     var mapPin = new InfoBox(infoBoxOptions);
-    mapPin.setPosition(new google.maps.LatLng(hub.lat, hub.lng));
+    //mapPin.setPosition(new google.maps.LatLng(hub.lat, hub.lng));
     mapPin.open(globals.mainMap);
     mapPin.addListener("domready", function() {
       hubsLoaded++;

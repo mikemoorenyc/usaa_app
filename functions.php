@@ -52,4 +52,8 @@ include 'property-type.php';
 include 'include-URL-variables.php';
 include 'portfolio-meta-add.php';
 
+
+//MAP DETAIL
+include 'main_detail_module/map_detail_include.php';
+
 ?>

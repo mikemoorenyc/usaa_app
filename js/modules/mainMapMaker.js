@@ -10,7 +10,21 @@ function mainMapMaker() {
     zoom: 5,
     disableDefaultUI: true,
     center: center,
-    styles: globals.mapStyle,
+    styles: [
+  {
+    "stylers": [
+      { "visibility": "off" }
+    ]
+  },{
+    "featureType": "landscape",
+    "elementType": "geometry",
+    "stylers": [
+      { "visibility": "on" },
+      { "color": "#ffffff" }
+    ]
+  },{
+  }
+],
     minZoom: 5,
     maxZoom: 8
   };
@@ -49,6 +63,54 @@ function mainMapMaker() {
 
        stateCreator(globals.properties);
 
+   });
+
+   //GET STATES
+   $.ajax({
+     url:globals.templateURL+'/assets/states.xml',
+     dataType:'xml',
+   })
+   .done(function(data){
+     var colorArray = [
+       '#8396c9',
+       '#67b7ea',
+       '#5d6fa1',
+       '#b9d3df'
+     ]
+     var randColor = '';
+     $(data).find('states > state').each(function(){
+       var color = colorArray[0];
+       if($(this).attr('region') == 'mid') {
+         color = colorArray[1];
+       }
+       if($(this).attr('region') == 'south') {
+         color = colorArray[2];
+       }
+       if($(this).attr('region') == 'west') {
+         color = colorArray[3];
+       }
+       var points = [];
+       $(this).find('point').each(function(){
+         var lats = {
+           lat: parseFloat($(this).attr('lat')),
+           lng: parseFloat($(this).attr('lng'))
+         }
+         points.push(lats);
+       });
+       var bermudaTriangle = new google.maps.Polygon({
+    paths: points,
+    strokeColor: '#ffffff',
+    strokeOpacity: 1,
+    strokeWeight: 1,
+    fillColor: color,
+    fillOpacity: 1,
+    clickable: false
+  });
+  bermudaTriangle.setMap(globals.mainMap);
+     });
+   })
+   .fail(function(){
+     alert('Could Not Load Data. Please refresh page.');
    });
 
   //GET PINS
