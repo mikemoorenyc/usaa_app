@@ -93,8 +93,10 @@ mapDetailInitialize();
   $('.add-new-map-point').click(function(){
     if($("#interior-map-holder").hasClass('__adding-map-point') == true) {
       addStateReverse();
-      return;
+      console.log('true');
+      return false;
     }
+    console.log('false');
     $('#interior-map-holder').addClass('__adding-map-point');
     $(this).text('Cancel');
     return false;
@@ -109,5 +111,11 @@ mapDetailInitialize();
 
 
   $(document).on('click', '.map-point',function(){
-    
+    if($("#interior-map-holder").hasClass('__adding-map-point') == true) {
+      console.log('bad mao');
+      return false;
+    }
+    console.log('good');
+
+    return false;
   });

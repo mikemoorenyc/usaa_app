@@ -1,7 +1,12 @@
 function pointCreator(id, lat,lng, type, value) {
-
+  if (type === undefined) {
+    type="";
+  }
+  if (value === undefined) {
+    value="";
+  }
   var infoBoxOptions = {
-    content : ''
+    content : '<div data-lat="'+lat+'" data-lng="'+lng+'" class="marker '+type+'" data-id="'+id+'"><span class="label">'+value+'</span></div>'
     ,disableAutoPan: true
     ,maxWidth: 0
     ,boxStyle: {

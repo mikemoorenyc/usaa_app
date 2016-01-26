@@ -1,7 +1,7 @@
 <?php
 wp_nonce_field( 'interior_map_save_data', 'interior_map_nonce' );
 ?>
-<div id="interior-map-holder">
+<div id="outer-map-holder">
   <style>
   @import url('<?php echo get_bloginfo('template_url');?>/main_detail_module/main.css');
 
