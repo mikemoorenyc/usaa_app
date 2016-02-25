@@ -6,7 +6,9 @@ var gulp = require('gulp'),
     changed = require('gulp-changed'),
 
     wrap = require('gulp-wrap'),
-    replace = require('gulp-replace');
+    replace = require('gulp-replace'),
+    declare = require('gulp-declare'),
+    handlebars = require('gulp-handlebars');
 
 //CSS PROCESSING
 var sass = require('gulp-sass'),
@@ -27,6 +29,20 @@ var  htmlclean = require('gulp-htmlclean');
 var uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint');
 
+
+gulp.task('handlebars', function(){
+  gulp.src('templates/*.hbs')
+    .pipe(handlebars())
+    .pipe(wrap('Handlebars.template(<%= contents %>)'))
+    .pipe(declare({
+      namespace: 'UsaaApp.templates',
+      noRedeclare: true, // Avoid duplicate declarations
+    }))
+    .pipe(uglify())
+    .on('error', console.error.bind(console))
+    .pipe(concat('templates.js'))
+    .pipe(gulp.dest('../'+buildDir));
+});
 gulp.task('sass', function () {
 
   sassProcessor(['sass/main.scss', 'sass/expanded.scss','sass/ie-fixes.scss','sass/editor-styles.scss'], '../'+buildDir+'/css');

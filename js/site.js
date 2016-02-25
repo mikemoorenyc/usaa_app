@@ -1,3 +1,4 @@
+/*
 templates = {};
 
 var handlebarsHTML = '<div>'+$('#handlebars-templates').html()+'</div>';
@@ -10,6 +11,7 @@ $(handlebarsHTML).find('> div').each(function(){
   templates[id] = Handlebars.compile(html);
 
 });
+*/
 
 function mapLoadedCheck() {
   if(globals.loaded == 2) {
@@ -22,18 +24,48 @@ function siteInit() {
   //COMPILE TEMPLATES
 
 
+
   //console.log($('#handlebars-templates').html());
 
 
 
   //GLOBALS
-  globals.ts = 500,
-  globals.tab = 401,
-  globals.dt = 801;
-  globals.loaded = 0;
+  UsaaApp.ww = $(window).width();
+  UsaaApp.wh = $(window).height();
+  UsaaApp.scaffoldSizer = function() {
+    function calc(wh) {
+      var hh = $('header').height();
+      var nh = $('nav').height();
+      $('#map').height(wh - (hh+ nh));
+    }
+    calc(this.wh);
 
 
+    $(window).resize(function(){
+      calc(this.wh);
+    }.bind(this));
+  }
+  UsaaApp.orientation = function(){
+    function decider(w,x) {
+      if (w >= x) {
+      $('html').addClass('_orientation-landscape').removeClass('_orientation-portrait');
+      }else {
+       $('html').removeClass('_orientation-landscape').addClass('_orientation-portrait');
+      }
+    }
+    decider(this.ww,this.wh);
 
+    $(window).resize(function(){
+      this.ww = $(window).width();
+      this.wh = $(window).height();
+      decider(this.ww,this.wh);
+    }.bind(this));
+  }
+  UsaaApp.orientation();
+  UsaaApp.scaffoldSizer();
+
+
+/*
   globals.ww = $(window).width();
   globals.wh = $(window).height();
   orientationClass();
@@ -51,7 +83,7 @@ function siteInit() {
 
 
 
-
+*/
 
 
 
@@ -62,22 +94,17 @@ function siteInit() {
 }
 
 
-
+/*
 function scaffoldSizer() {
   var hh = $('header').height();
   var nh = $('nav').height();
   $('#map').height(globals.wh - (hh+ nh));
 
 }
+*/
 
 
-function orientationClass() {
-  if (globals.ww >= globals.wh) {
-    $('html').addClass('_orientation-landscape').removeClass('_orientation-portrait');
-  } else {
-    $('html').removeClass('_orientation-landscape').addClass('_orientation-portrait');
-  }
-}
+
 
 
 

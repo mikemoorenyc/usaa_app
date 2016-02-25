@@ -102,14 +102,6 @@ mapDetailInitialize();
     return false;
   });
 
-  //CHECK ON CLICK
-  google.maps.event.addListener(interiorMap, 'click', function(event) {
-    if($("#interior-map-holder").hasClass('__adding-map-point') == true) {
-      addAPoint(event.latLng);
-    }
-  });
-
-
   $(document).on('click', '.map-point',function(){
     if($("#interior-map-holder").hasClass('__adding-map-point') == true) {
       console.log('bad mao');
@@ -118,4 +110,11 @@ mapDetailInitialize();
     console.log('good');
 
     return false;
+  });
+
+  //CHECK ON CLICK
+  google.maps.event.addListener(interiorMap, 'click', function(event) {
+    if($("#interior-map-holder").hasClass('__adding-map-point') == true) {
+      addAPoint(event.latLng);
+    }
   });
